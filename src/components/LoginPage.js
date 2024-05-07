@@ -7,9 +7,9 @@ function LoginPage() {
     <div className="login-container">
       <h1>Login</h1>
       <form className="login-form">
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Password" required />
-        <button type="submit">Login</button>
+        <input className='login-input' type="email" placeholder="Email" required />
+        <input className='login-input' type="password" placeholder="Password" required />
+        <button className='login-button' type="submit">Login</button>
       </form>
     </div>
   );

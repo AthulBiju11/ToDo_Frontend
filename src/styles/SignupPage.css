@@ -15,17 +15,14 @@
     width: 300px;
   }
   
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  button {
+  .signup-button, .signup-input {
     margin-bottom: 10px;
     padding: 10px;
     border: none;
     border-radius: 5px;
   }
   
-  button {
+  .signup-button {
     background-color: #fff;
     color: #3a7bd5;
     cursor: pointer;

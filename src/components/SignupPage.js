@@ -58,17 +58,17 @@ function SignupPage() {
     <div className="signup-container">
       <h1>Sign Up</h1>
       <form className="signup-form" onSubmit={handleSignup}>
-        <input type="text" placeholder="First Name" required value={firstName} 
+        <input className="signup-input" type="text" placeholder="First Name" required value={firstName} 
           onChange={(e) => setFirstName(e.target.value)} />
-        <input type="text" placeholder="Last Name" required value={lastName} 
+        <input className="signup-input" type="text" placeholder="Last Name" required value={lastName} 
           onChange={(e) => setLastName(e.target.value)} />
-        <input type="text" placeholder="User Name" required value={userName} 
+        <input className="signup-input" type="text" placeholder="User Name" required value={userName} 
           onChange={(e) => setUserName(e.target.value)} />
-        <input type="password" placeholder="Password" required value={password} 
+        <input className="signup-input" type="password" placeholder="Password" required value={password} 
           onChange={(e) => setPassword(e.target.value)}/>
-        <input type="password" placeholder="Confirm Password" required value={confirmPassword} 
+        <input className="signup-input" type="password" placeholder="Confirm Password" required value={confirmPassword} 
           onChange={(e) => setConfirmPassword(e.target.value)}/>
-        <button type="submit">Sign Up</button>
+        <button className="signup-button" type="submit">Sign Up</button>
       </form>
     </div>
   );

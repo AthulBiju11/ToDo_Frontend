@@ -6,33 +6,33 @@ import client from './api/client';
 
 
 // Sample data for projects
-const projectsData = [
-  {
-    id: 1,
-    title: "Project 1",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tincidunt neque nec lacus ultrices, ac semper quam fringilla."
-  },
-  {
-    id: 2,
-    title: "Project 2",
-    description: "Nullam vel eleifend nisl. Cras nec mauris non nunc fermentum aliquet. Vivamus ultricies sed lacus ac eleifend."
-  },
-  {
-    id: 3,
-    title: "Project 3",
-    description: "Pellentesque nec risus a tellus tincidunt fringilla. Fusce laoreet sem at eros tristique, vitae fringilla leo tristique."
-  },
-  {
-    id: 4,
-    title: "Project 3",
-    description: "Pellentesque nec risus a tellus tincidunt fringilla. Fusce laoreet sem at eros tristique, vitae fringilla leo tristique."
-  },
-  {
-    id: 5,
-    title: "Project 3",
-    description: "Pellentesque nec risus a tellus tincidunt fringilla. Fusce laoreet sem at eros tristique, vitae fringilla leo tristique."
-  }
-];
+// const projectsData = [
+//   {
+//     id: 1,
+//     title: "Project 1",
+//     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tincidunt neque nec lacus ultrices, ac semper quam fringilla."
+//   },
+//   {
+//     id: 2,
+//     title: "Project 2",
+//     description: "Nullam vel eleifend nisl. Cras nec mauris non nunc fermentum aliquet. Vivamus ultricies sed lacus ac eleifend."
+//   },
+//   {
+//     id: 3,
+//     title: "Project 3",
+//     description: "Pellentesque nec risus a tellus tincidunt fringilla. Fusce laoreet sem at eros tristique, vitae fringilla leo tristique."
+//   },
+//   {
+//     id: 4,
+//     title: "Project 3",
+//     description: "Pellentesque nec risus a tellus tincidunt fringilla. Fusce laoreet sem at eros tristique, vitae fringilla leo tristique."
+//   },
+//   {
+//     id: 5,
+//     title: "Project 3",
+//     description: "Pellentesque nec risus a tellus tincidunt fringilla. Fusce laoreet sem at eros tristique, vitae fringilla leo tristique."
+//   }
+// ];
 
 function ProjectsPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,6 +40,7 @@ function ProjectsPage() {
     const [userName,setUserName]=useState('');
     const [uid,setUid]=useState('');
     const [token,setToken]=useState('');
+    const [todo,setTodo]=useState([]);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -66,7 +67,6 @@ function ProjectsPage() {
                   }
             }
             ) 
-            
         } catch(error){
             console.log("Error in creating project: ",error);
         }
@@ -79,6 +79,8 @@ function ProjectsPage() {
     useEffect(()=>{
         const id= JSON.parse(localStorage.getItem('uid'))
         const tokens = JSON.parse(localStorage.getItem('token'))
+
+    if( id && tokens){
         setUid(JSON.parse(localStorage.getItem('uid')));
         setUserName(JSON.parse(localStorage.getItem('userName')));
         setToken(JSON.parse(localStorage.getItem('token')));
@@ -97,7 +99,13 @@ function ProjectsPage() {
             })
             if(response.data){
                 setData(response.data);
-                console.log("response",data);
+                // console.log("checking response", response.data);
+                // console.log("response",data);
+                console.log("title", response.data[0].todoList);
+                setTodo(response.data[0].todoList);
+                console.log(todo.length);
+
+
                 
             }
             // console.log("All projects ", response.data);
@@ -107,9 +115,17 @@ function ProjectsPage() {
             }
               
           }
+        
           fetchProjects();
+        }
         }, []);
-        // data.map(item=>console.log(item.id))
+        
+
+        useEffect(() => {
+            // Perform any side effects based on the updated 'data' state here
+            data.map(item => console.log("map title", item.title));
+        }, [data]);
+
   return (
     <div>
     <Navbar username={userName} />
@@ -121,10 +137,10 @@ function ProjectsPage() {
       <div className="project-tiles">
         {
             data?(
-                projectsData.map(project => (
+                data.map(project => (
                     <div key={project.id} className="project-tile">
                       <h2>{project.title}</h2>
-                      <p>{project.description}</p>
+                      <p>{`${todo.length} todos`}</p>
                     </div>
 
             )

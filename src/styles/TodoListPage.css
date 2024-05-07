@@ -1,0 +1,59 @@
+.todo-list-page {
+    background-color: #f0f0f0;
+    min-height: 100vh;
+  }
+  
+  .todo-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .todo-container h1 {
+    margin-top: 0;
+  }
+  
+  .todo-container input[type="text"] {
+    width: calc(100% - 80px);
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .todo-container button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #3a7bd5;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .todo-container button:hover {
+    background-color: #2a5baf;
+  }
+  
+  .todo-container ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .todo-container li {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .todo-container input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .todo-container .completed {
+    text-decoration: line-through;
+    color: #999;
+  }
+  

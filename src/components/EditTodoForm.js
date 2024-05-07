@@ -3,7 +3,7 @@ import '../styles/Todo.css'
 
 
 export const EditTodoForm = ({editTodo, task}) => {
-    const [value, setValue] = useState(task.task);
+    const [value, setValue] = useState(task.title);
 
     const handleSubmit = (e) => {
       // prevent default action

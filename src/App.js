@@ -14,7 +14,7 @@ function App() {
         <Route exact path='/signup' element={<SignupPage/>}/>
         <Route exact path='/' element={<LoginPage/>}/>
         <Route exact path='/projects' element={<ProjectsPage/>}/>
-        <Route exact path='/projects/todo' element={<TodoWrapper/>}/>
+        <Route exact path='/projects/todo/:id' element={<TodoWrapper/>}/>
         {/* <Route path='/login' element={<Login/>}/>
         <Route  path='/home' element={<Home2/>}/>
         <Route  path='/details/:id' element={<Details/>}/>

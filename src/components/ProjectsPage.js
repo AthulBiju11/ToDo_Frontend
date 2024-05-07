@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import Navbar from './NavBar';
 import '../styles/ProjectPage.css';
+import { useNavigate } from 'react-router-dom'
 import AddProjectModal from './AddProjectModal';
 import client from './api/client';
 
@@ -35,6 +36,7 @@ import client from './api/client';
 // ];
 
 function ProjectsPage() {
+    const navigate=useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [data,setData] = useState([]);
     const [userName,setUserName]=useState('');
@@ -129,7 +131,7 @@ function ProjectsPage() {
   return (
     <div>
     <Navbar username={userName} />
-    <div className="projects-container">
+    <div className="projects-container" >
       <div className="header">
         <h1>My Projects</h1>
         <button className="add-project-btn" onClick={openModal}>Add New Project</button>
@@ -138,7 +140,7 @@ function ProjectsPage() {
         {
             data?(
                 data.map(project => (
-                    <div key={project.id} className="project-tile">
+                    <div key={project.id} className="project-tile" onClick={()=>navigate(`/projects/todo/${project.id}`)}>
                       <h2>{project.title}</h2>
                       <p>{`${todo.length} todos`}</p>
                     </div>

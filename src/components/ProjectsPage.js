@@ -129,7 +129,7 @@ function ProjectsPage() {
         }, [data]);
 
   return (
-    <div>
+    <div className='outer-container'>
     <Navbar username={userName} />
     <div className="projects-container" >
       <div className="header">

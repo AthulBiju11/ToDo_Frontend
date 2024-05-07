@@ -1,6 +1,6 @@
 .projects-container {
-    width: 100%;
-    padding: 20px;
+    
+    padding: 10px;
   }
   
   .header {
@@ -108,3 +108,7 @@
     background-color: #2a5baf;
   }
   
+  .outer-container{
+    padding: 0;
+    margin: 0;
+  }

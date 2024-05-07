@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Todo } from "./Todo";
 import { TodoForm } from "./TodoForm";
 import { v4 as uuidv4 } from "uuid";
@@ -13,129 +13,123 @@ import client from './api/client';
 
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState([]);
-  const [datas,setData]=useState([]);
-  const [uid,setUid]=useState('');
-  const [userName,setUserName]=useState('');
-  const [token,setToken]=useState('');
+  const [datas, setData] = useState([]);
+  const [uid, setUid] = useState('');
+  const [userName, setUserName] = useState('');
+  const [token, setToken] = useState('');
 
-  const {id}=useParams;
-  const projectId=useParams().id;
+  const { id } = useParams;
+  const projectId = useParams().id;
 
-  const fetchAllProjects= async()=>{
+  const fetchAllProjects = async () => {
     const tokens = JSON.parse(localStorage.getItem('token'))
-    try{
-      console.log("token",token);
-      console.log('projectid',projectId);
+    try {
+      console.log("token", token);
+      console.log('projectid', projectId);
       const response = await client.get(`project/${projectId}`,
-      {
+        {
           headers: {
-              Authorization: `Bearer ${tokens}`
-            }
-      }
-      ) 
-      if (response.data){
+            Authorization: `Bearer ${tokens}`
+          }
+        }
+      )
+      if (response.data) {
         const updatedTodos = response.data.todoList.map(todo => ({
           ...todo,
           isEditing: false  // Adding the isEditing field with a default value
-      }));
-      setTodos(updatedTodos);
+        }));
+        setTodos(updatedTodos);
         // setTodos(response.data.todoList);
-        console.log("todo data ",todos);
+        console.log("todo data ", todos);
         console.log(response.data.todoList);
       }
-  } catch(error){
-      console.log("Error in creating project: ",error);
+    } catch (error) {
+      console.log("Error in creating project: ", error);
+    }
   }
-  }
-  useEffect(()=>{
-    
+  useEffect(() => {
+
     setUid(JSON.parse(localStorage.getItem('uid')));
     setUserName(JSON.parse(localStorage.getItem('userName')));
     setToken(JSON.parse(localStorage.getItem('token')));
 
-    
+
 
     fetchAllProjects();
 
-  },[])
-  
+  }, [])
 
-  const addTodo =async (todo) => {
+
+  const addTodo = async (todo) => {
     // setTodos([
     //   ...todos,
     //   { id: uuidv4(), task: todo, completed: false, isEditing: false },
     // ]);
-    
+
     console.log(todo);
-    try{
-      console.log("token",token);
-      console.log('projectid',projectId);
+    try {
+      console.log("token", token);
+      console.log('projectid', projectId);
       const response = await client.post("/todo/create", {
-         
+
         projectId: projectId,
-        description:'',
+        description: '',
         title: todo
       },
-      {
+        {
           headers: {
-              Authorization: `Bearer ${token}`
-            }
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      if (response.data) {
+        fetchAllProjects();
       }
-      ) 
-      if (response.data){
-       fetchAllProjects();
-      }
-  } catch(error){
-      console.log("Error in creating project: ",error);
-  }
+    } catch (error) {
+      console.log("Error in creating project: ", error);
+    }
 
   }
 
-  const deleteTodo = async (id) =>{
+  const deleteTodo = async (id) => {
     console.log("delete");
-    try{
-     console.log("delete",token);
-     const response = await client.delete(`todo/delete/${id}`,
-      {
+    try {
+      console.log("delete", token);
+      const response = await client.delete(`todo/delete/${id}`,
+        {
           headers: {
-              Authorization: `Bearer ${token}`
-            }
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      if (response.data) {
+        fetchAllProjects();
       }
-      )  
-      if (response.data){
-       fetchAllProjects();
-      }
-  } catch(error){
-      console.log("Error in deleting project: ",error);
-  }
+    } catch (error) {
+      console.log("Error in deleting project: ", error);
+    }
   }
   //  setTodos(todos.filter((todo) => todo.id !== id));
 
   const toggleComplete = async (id) => {
-    // setTodos(
-    //   todos.map((todo) =>
-    //     todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    //   )
-    // );
-    const tokens = JSON.parse(localStorage.getItem('token'))
-    try{
-      console.log("token",token);
-      console.log('projectid',projectId);
+    const token = await JSON.parse(localStorage.getItem('token'));
+    
 
-      const response = await client.post(`todo/status/${id}`,
-      {
-          headers: {
-              Authorization: `Bearer ${token}`
-            }
-      }
-      )  
-      if (response.data){
-       fetchAllProjects();
-      }
-  } catch(error){
-      console.log("Error in updating task: ",error);
-  }
+    try {
+      console.log("token", token);
+      console.log('projectid', id);
+      const response = await client.put(`/todo/status/${id}`,null, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
+      if (response.data) {
+        fetchAllProjects();
+      }
+    } catch (error) {
+      console.log("Error in updating task: ", error);
+    }
   }
 
   const editTodo = (id) => {
@@ -146,61 +140,61 @@ export const TodoWrapper = () => {
     );
   }
 
-  const editTask =async (task, id) => {
+  const editTask = async (task, id) => {
     // setTodos(
     //   todos.map((todo) =>
     //     todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
     //   )
     // );
-    
-    try{
-      console.log("token",token);
-      console.log('projectid',projectId);
+
+    try {
+      console.log("token", token);
+      console.log('projectid', projectId);
 
       const response = await client.post(`/todo/update/${id}`, {
-         
+
         title: task,
-        description:'',
+        description: '',
         projectId: projectId,
-        
-        
+
+
       },
-      {
+        {
           headers: {
-              Authorization: `Bearer ${token}`
-            }
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      if (response.data) {
+        fetchAllProjects();
       }
-      ) 
-      if (response.data){
-       fetchAllProjects();
-      }
-  } catch(error){
-      console.log("Error in updating task: ",error);
-  }
+    } catch (error) {
+      console.log("Error in updating task: ", error);
+    }
 
   };
   return (
     <div className="" >
       <Navbar username={userName} />    <div className="try">
-      <div className="TodoWrapper">
-      <h1>Get Things Done !</h1>
-      <TodoForm addTodo={addTodo} />
-      {/* display todos */}
-      {todos.map((todo) =>
-        todo.isEditing ? (
-          <EditTodoForm editTodo={editTask} task={todo} />
-        ) : (
-          <Todo
-            key={todo.id}
-            task={todo}
-            deleteTodo={deleteTodo}
-            editTodo={editTodo}
-            toggleComplete={toggleComplete}
-          />
-        )
-      )}
+        <div className="TodoWrapper">
+          <h1>Get Things Done !</h1>
+          <TodoForm addTodo={addTodo} />
+          {/* display todos */}
+          {todos.map((todo) =>
+            todo.isEditing ? (
+              <EditTodoForm editTodo={editTask} task={todo} />
+            ) : (
+              <Todo
+                key={todo.id}
+                task={todo}
+                deleteTodo={deleteTodo}
+                editTodo={editTodo}
+                toggleComplete={toggleComplete}
+              />
+            )
+          )}
+        </div>
       </div>
-    </div>
     </div>
   );
 };

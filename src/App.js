@@ -8,7 +8,7 @@ import { TodoWrapper } from './components/TodoWrapper';
 
 function App() {
   return (
-    <div>
+    <div className='container'>
       <Router>
         <Routes>
         <Route exact path='/signup' element={<SignupPage/>}/>

@@ -1,0 +1,110 @@
+.projects-container {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .header h1 {
+    color: #3a7bd5;
+    margin: 0;
+  }
+  
+  .add-project-btn {
+    background-color: #3a7bd5;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-project-btn:hover {
+    background-color: #2a5baf;
+  }
+  
+  .project-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .project-tile {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .project-tile:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .project-tile h2 {
+    margin-bottom: 10px;
+  }
+  
+  .project-tile p {
+    font-size: 14px;
+  }
+  
+  /* Modal styles */
+.MuiDialog-paper {
+    width: 400px;
+  }
+  
+  .MuiDialogTitle-root {
+    background-color: #3a7bd5;
+    color: #fff;
+  }
+  
+  .MuiDialogContent-root {
+    padding: 20px;
+  }
+  
+  .MuiDialogActions-root {
+    padding: 20px;
+    justify-content: flex-end;
+  }
+  
+  /* Custom styles */
+  .add-project-modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .add-project-modal-content {
+    margin-bottom: 20px;
+  }
+  
+  .add-project-modal-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .add-project-modal-buttons button {
+    background-color: #3a7bd5;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+  }
+  
+  .add-project-modal-buttons button:hover {
+    background-color: #2a5baf;
+  }
+  

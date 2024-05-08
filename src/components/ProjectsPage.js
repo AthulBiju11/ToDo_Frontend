@@ -42,7 +42,36 @@ function ProjectsPage() {
     const [userName,setUserName]=useState('');
     const [uid,setUid]=useState('');
     const [token,setToken]=useState('');
-    const [todo,setTodo]=useState([]);
+    
+
+    const fetchProjects=async()=>{
+        const id= JSON.parse(localStorage.getItem('uid'))
+        const tokens = JSON.parse(localStorage.getItem('token'))
+        // console.log("All projects",id);
+        // console.log("All projects",tokens);
+        try{
+          const response= await client.get(`/project/all/${id}`,{
+            headers: {
+                Authorization: `Bearer ${tokens}`
+              }
+        })
+        if(response.data){
+            setData(response.data);
+            // console.log("checking response", response.data);
+            // console.log("response",data);
+            console.log("title", response.data[0].todoList);
+            
+
+
+            
+        }
+        // console.log("All projects ", response.data);
+        }
+        catch(error){
+          console.log(error);
+        }
+          
+      }
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -69,6 +98,9 @@ function ProjectsPage() {
                   }
             }
             ) 
+            if(response.data){
+                fetchProjects();
+            }
         } catch(error){
             console.log("Error in creating project: ",error);
         }
@@ -90,33 +122,7 @@ function ProjectsPage() {
         console.log(userName);
         console.log(token);
         // console.log("hello");
-        const fetchProjects=async()=>{
-            console.log("All projects",id);
-            console.log("All projects",tokens);
-            try{
-              const response= await client.get(`/project/all/${id}`,{
-                headers: {
-                    Authorization: `Bearer ${tokens}`
-                  }
-            })
-            if(response.data){
-                setData(response.data);
-                // console.log("checking response", response.data);
-                // console.log("response",data);
-                console.log("title", response.data[0].todoList);
-                setTodo(response.data[0].todoList);
-                console.log(todo.length);
-
-
-                
-            }
-            // console.log("All projects ", response.data);
-            }
-            catch(error){
-              console.log(error);
-            }
-              
-          }
+        
         
           fetchProjects();
         }
@@ -142,7 +148,7 @@ function ProjectsPage() {
                 data.map(project => (
                     <div key={project.id} className="project-tile" onClick={()=>navigate(`/projects/todo/${project.id}`)}>
                       <h2>{project.title}</h2>
-                      <p>{`${todo.length} todos`}</p>
+                      <p>{`${project.todoList.length} todos`}</p>
                     </div>
 
             )
@@ -153,7 +159,7 @@ function ProjectsPage() {
         }
       </div>
     </div>
-    <AddProjectModal open={isModalOpen} onClose={closeModal} onAddProject={addProject} />
+    <AddProjectModal open={isModalOpen} onClose={closeModal} onAddProject={addProject} title={'Add New Project'} />
   </div>
   );
 }

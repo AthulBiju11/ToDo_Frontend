@@ -3,7 +3,7 @@ import {BrowserRouter as Router,Route,Routes} from 'react-router-dom'
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import ProjectsPage from './components/ProjectsPage';
-import TodoListPage from './components/TodoListPage';
+import TodoListPage from './components/TodoPage';
 import { TodoWrapper } from './components/TodoWrapper';
 
 function App() {

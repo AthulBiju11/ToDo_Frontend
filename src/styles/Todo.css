@@ -98,4 +98,7 @@ h1 {
     width: 100vw;
   }
 
-  
+  .title{
+    display: flex;
+    justify-content: space-between;
+  }
